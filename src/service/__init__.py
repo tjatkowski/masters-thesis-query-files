@@ -1,4 +1,4 @@
-from llama_index import ServiceContext, Document, VectorStoreIndex, StorageContext, load_index_from_storage
+from llama_index import ServiceContext, Document, VectorStoreIndex, StorageContext, load_index_from_storage, load_indices_from_storage
 from llama_index.llms import Ollama
 
 storage_dir = './local_storage'
@@ -21,8 +21,29 @@ def create_index(index_id):
     index.storage_context.persist(persist_dir=storage_dir)
 
 
+def list_indices():
+    indices = load_indices_from_storage(storage_context=storage_context,
+                                        service_context=service_context)
+
+    return list(map(lambda index: index.index_id, indices))
+
+
+def delete_index(index_id):
+    storage_context.index_store.delete_index_struct(index_id)
+
+    storage_context.persist(persist_dir=storage_dir)
+
+
+def get_index(index_id):
+    return load_index_from_storage(storage_context=storage_context,
+                                   service_context=service_context,
+                                   index_id=index_id)
+
+
 def add_file_to_index(index_id, path):
-    index = load_index_from_storage(storage_context=storage_context, index_id=index_id)
+    index = load_index_from_storage(storage_context=storage_context,
+                                    service_context=service_context,
+                                    index_id=index_id)
 
     with open(path, 'r') as file:
         index.insert(Document(text=file.read()))
@@ -37,11 +58,11 @@ def query_index(index_id, question):
     index = load_index_from_storage(storage_context=storage_context,
                                     service_context=service_context,
                                     index_id=index_id)
-    print("Loading query engine")
+    # print("Loading query engine")
     query_engine = index.as_query_engine(service_context=service_context,
                                          streaming=True)
 
-    print("Querying")
+    # print("Querying")
     response = query_engine.query(question)
-    response = query_engine.query("Who is Captain Shannon?")
+    # response = query_engine.query("Who is Captain Shannon?")
     response.print_response_stream()

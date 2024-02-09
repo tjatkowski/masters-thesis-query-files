@@ -78,9 +78,32 @@
 # # print(response)
 #
 
-from service import create_index, add_file_to_index, query_index
+from service import *
 
-create_index('dupa3')
+print(list_indices())
+
+SPRAWDDZ CZY jezeli dodam dokument jakos lepiej do indexu, to czy bede go potem w stanie usunac
+
+
+# print('creating index')
+# create_index('dupa2')
+#
+# print(list_indices())
+#
+# print('adding to index')
+# add_file_to_index('dupa2', '/Users/knayder/Projects/masters-thesis-query-files/data/captain-shannon.txt')
+#
+# print(list_indices())
+#
+# print('querying index')
+# query_index('dupa2', 'Who is Captain Shannon?')
+#
+# print(list_indices())
+#
+# print('deleting index')
+# delete_index('dupa2')
+#
+# print(list_indices())
 
 
 # query_index('d276f92d-1797-4eb5-b1e1-080eef13005c', 'Who is Captain Shannon?')
