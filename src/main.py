@@ -82,9 +82,6 @@ from service import *
 
 print(list_indices())
 
-SPRAWDDZ CZY jezeli dodam dokument jakos lepiej do indexu, to czy bede go potem w stanie usunac
-
-
 # print('creating index')
 # create_index('dupa2')
 #

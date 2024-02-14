@@ -1,4 +1,4 @@
-from llama_index import ServiceContext, Document, VectorStoreIndex, StorageContext, load_index_from_storage, load_indices_from_storage
+from llama_index_core import ServiceContext, Document, VectorStoreIndex, StorageContext, SimpleDirectoryReader, load_indices_from_storage
 from llama_index.llms import Ollama
 
 storage_dir = './local_storage'
@@ -44,6 +44,8 @@ def add_file_to_index(index_id, path):
     index = load_index_from_storage(storage_context=storage_context,
                                     service_context=service_context,
                                     index_id=index_id)
+    # documents = SimpleDirectoryReader(input_files = ['data/captain-shannon.txt']).load_data()
+
 
     with open(path, 'r') as file:
         index.insert(Document(text=file.read()))
