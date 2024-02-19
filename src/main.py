@@ -78,9 +78,13 @@
 # # print(response)
 #
 
+from config import config
 from service import *
 
+config()
+
 print(list_indices())
+query_index('dupa1', 'Who is Captain Shannon?')
 
 # print('creating index')
 # create_index('dupa2')
