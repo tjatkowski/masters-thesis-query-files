@@ -88,7 +88,7 @@ print(list_indices())
 # print(list_indices())
 #
 # print('adding to index')
-# add_file_to_index('dupa2', '/Users/knayder/Projects/masters-thesis-query-files/data/captain-shannon.txt')
+# add_fidle_to_index('dupa2', '/Users/knayder/Projects/masters-thesis-query-files/data/captain-shannon.txt')
 #
 # print(list_indices())
 #
