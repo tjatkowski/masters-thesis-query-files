@@ -78,32 +78,52 @@
 # # print(response)
 #
 
+
+'''
+from src.config import config
+from src.service import *
+config()
+
+'''
+
 from config import config
 from service import *
 
 config()
 
-print(list_indices())
-query_index('dupa1', 'Who is Captain Shannon?')
+get_index('index1').docstore.get_all_ref_doc_info().keys()
+get_index('index2').docstore.get_all_ref_doc_info().keys()
+get_index('index3').docstore.get_all_ref_doc_info().keys()
 
-# print('creating index')
-# create_index('dupa2')
-#
+
 # print(list_indices())
+# query_index('index1', 'Who is Captain Shannon?')
+
+# Based on the context provided, Captain Shannon appears to be a mysterious and elusive figure who is suspected of committing a series of crimes in England and Ireland. The police have been unable to discover his true identity, despite offering rewards for information leading to his capture. It seems that Captain Shannon is highly skilled at evading detection and has a reputation for being ruthless and cunning.
 #
+# From the passage, it is unclear what Captain Shannon's actual identity is, but he is described as a "monster" who is capable of committing heinous crimes with little regard for the consequences. The police believe that he is likely to be Irish, based on the location of the crimes and the informant's description of him as having a dark complexion. However, it is important to note that this is only an assumption and does not necessarily indicate Captain Shannon's true identity.
+#
+# In summary, Captain Shannon is a shadowy figure who is believed to be responsible for a series of crimes in England and Ireland. His true identity remains a mystery, but he is described as a dangerous and cunning individual who is likely to be Irish.
+# Process finished with exit code 0
+
+print('creating index')
+create_index('index2')
+# #
+print(list_indices())
+# #
 # print('adding to index')
-# add_fidle_to_index('dupa2', '/Users/knayder/Projects/masters-thesis-query-files/data/captain-shannon.txt')
-#
+# add_file_to_index('index2', '/Users/knayder/Projects/masters-thesis-query-files/data/captain-shannon.txt')
+# #
 # print(list_indices())
-#
+# #
 # print('querying index')
-# query_index('dupa2', 'Who is Captain Shannon?')
-#
+# query_index('index1', 'Who is Captain Shannon?')
+# #
 # print(list_indices())
 #
 # print('deleting index')
-# delete_index('dupa2')
-#
+# delete_index('index1')
+
 # print(list_indices())
 
 
