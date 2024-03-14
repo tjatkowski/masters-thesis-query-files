@@ -50,7 +50,6 @@ def delete_index(index_id: str) -> None:
     Args:
         index_id (str): The ID of the index to be deleted.
     """
-    # TODO: First remove all documents
     delete_all_documents_from_index(index_id)
 
     storage_context.index_store.delete_index_struct(index_id)
@@ -58,7 +57,7 @@ def delete_index(index_id: str) -> None:
     storage_context.persist(persist_dir=storage_dir)
 
 
-def get_index(index_id: str) -> BaseIndex:
+def get_index(index_id: str) -> BaseIndex | None:
     """
     Retrieves an index with the given index_id.
 
@@ -66,10 +65,12 @@ def get_index(index_id: str) -> BaseIndex:
         index_id (str): The ID of the index to be retrieved.
 
     Returns:
-        Index: The retrieved index.
+        BaseIndex | None: The retrieved index, or None if an error occurs.
     """
-    return load_index_from_storage(storage_context=storage_context,
-                                   index_id=index_id)
+    try:
+        return load_index_from_storage(storage_context=storage_context, index_id=index_id)
+    except ValueError:
+        return None
 
 
 def add_file_to_index(index_id: str, path: str) -> None:
@@ -179,6 +180,9 @@ def delete_all_documents_from_index(index_id: str) -> None:
         index_id (str): The ID of the index from which to delete all documents.
     """
     index = get_index(index_id)
+    if index is None:
+        return
+
     documents = _list_documents_in_index(index)
     _remove_doc_refs_from_index(index, list(documents.values()))
 
