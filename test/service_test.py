@@ -39,6 +39,7 @@ def test_add_file_to_index():
     create_index('index1')
     add_file_to_index('index1', 'test/test_data/test_document.txt')
     assert list(list_documents_in_index('index1').keys()) == ['test_document.txt']
+    # TODO: Test adding not existing file
 
 
 def test_list_documents_in_index():
@@ -57,6 +58,7 @@ def test_remove_doc_ref_from_index():
     doc_ref = list_documents_in_index('index1')['test_document.txt']
     remove_doc_ref_from_index('index1', doc_ref)
     assert list(list_documents_in_index('index1').keys()) == ['test_document2.txt']
+    # TODO: Test removing not existing doc_ref
 
 
 def test_remove_doc_file_from_index():
@@ -65,6 +67,7 @@ def test_remove_doc_file_from_index():
     add_file_to_index('index1', 'test/test_data/test_document2.txt')
     remove_doc_file_from_index('index1', 'test_document2.txt')
     assert list(list_documents_in_index('index1').keys()) == ['test_document.txt']
+    # TODO: Test removing not existing doc_file
 
 
 def test_delete_all_documents_from_index():
@@ -73,3 +76,4 @@ def test_delete_all_documents_from_index():
     add_file_to_index('index1', 'test/test_data/test_document2.txt')
     delete_all_documents_from_index('index1')
     assert list(list_documents_in_index('index1').keys()) == []
+    # TODO: Test removing empty index
