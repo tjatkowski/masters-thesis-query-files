@@ -1,9 +1,11 @@
 from llama_index.core import (Document, VectorStoreIndex,
                               StorageContext, SimpleDirectoryReader, load_indices_from_storage, load_index_from_storage)
 from llama_index.core.indices.base import BaseIndex
+import os
 
-storage_dir = './local_storage'
+storage_dir = os.getenv('LOCAL_STORAGE', './local_storage')
 
+# TODO: Implement better global state handling
 try:
     storage_context = StorageContext.from_defaults(persist_dir=storage_dir)
 except FileNotFoundError:

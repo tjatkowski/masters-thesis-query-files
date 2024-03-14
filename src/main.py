@@ -89,6 +89,12 @@ config()
 from config import config
 from service import *
 
+# DODAJ TERAZ FOLDER test/ gdzie bedie test.py.
+# Tam zaimportuj kod i zrob serie komend ktore maja przejsc. proste testy po prostu. W folderze test ma powstac local_storage
+# Moze jest jakis lekki testing framework?
+#
+# Dodaj requirements.txt z wersjami paczek pipa dla przyszlych pokole nXD
+
 config()
 
 get_index('index1').docstore.get_all_ref_doc_info().keys()
