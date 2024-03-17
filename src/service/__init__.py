@@ -1,6 +1,7 @@
 from llama_index.core import (Document, VectorStoreIndex,
                               StorageContext, SimpleDirectoryReader, load_indices_from_storage, load_index_from_storage)
 from llama_index.core.indices.base import BaseIndex
+from llama_index.core.base.response.schema import Response
 import os
 
 storage_dir = os.getenv('LOCAL_STORAGE', './local_storage')
@@ -187,7 +188,7 @@ def delete_all_documents_from_index(index_id: str) -> None:
     _remove_doc_refs_from_index(index, list(documents.values()))
 
 
-def query_index(index_id: str, question: str) -> None:  # TODO
+def query_index(index_id: str, question: str) -> Response | None:
     """
     Queries an index with the given index_id.
 
@@ -198,12 +199,11 @@ def query_index(index_id: str, question: str) -> None:  # TODO
     Returns:
         Response: The response to the query.
     """
-    index = load_index_from_storage(storage_context=storage_context,
-                                    index_id=index_id)
-    # print("Loading query engine")
-    query_engine = index.as_query_engine(streaming=True)
+    index = get_index(index_id)
+    if index is None:
+        return
 
-    # print("Querying")
-    response = query_engine.query(question)
-    # response = query_engine.query("Who is Captain Shannon?")
-    response.print_response_stream()
+    query_engine = index.as_query_engine()
+
+    return query_engine.query(question)
+
