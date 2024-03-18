@@ -1,0 +1,7 @@
+.idea/
+
+.DS_Store
+
+local_storage/
+local_storage_test/
+uploads/

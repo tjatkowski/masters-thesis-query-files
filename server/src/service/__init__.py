@@ -24,6 +24,7 @@ def create_index(index_id: str) -> BaseIndex:
         Index: The created index.
     """
     # TODO: Support more index types
+    # TODO: Check if index_id exists, notify otherwise
     index = VectorStoreIndex([], storage_context=storage_context)
     if index_id:
         index.set_index_id(index_id)
@@ -117,7 +118,11 @@ def list_documents_in_index(index_id: str) -> dict[str, str]:
     Returns:
         dict: A dictionary mapping file names to document references.
     """
-    return _list_documents_in_index(get_index(index_id))
+    # TODO: Notify if no index found
+    index = get_index(index_id)
+    if index is None:
+        return {}
+    return _list_documents_in_index(index)
 
 
 def _remove_doc_ref_from_index(index: BaseIndex, doc_ref: str) -> None:
