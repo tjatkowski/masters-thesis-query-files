@@ -3,12 +3,10 @@ from werkzeug.utils import secure_filename
 from config import config
 from service import *
 from flask import Flask, request
+from flask_cors import CORS
 
 app = Flask(__name__)
-
-# @app.route('/upload', methods=['POST'])
-# def upload_file():
-
+CORS(app)
 
 
 def success_response(data=None):
