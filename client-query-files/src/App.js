@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Indices from './components/Indices';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {Container, CssBaseline, Paper} from "@mui/material";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
+const App = () => (
+  <React.Fragment>
+    <CssBaseline />
+    <Container maxWidth="md">
+      <Paper elevation={2} sx={{
+        padding: '1em',
+        margin: '1em 0'
+      }}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Indices />}/>
+          </Routes>
+        </BrowserRouter>
+      </Paper>
+    </Container>
+  </React.Fragment>
+);
 
 export default App;
