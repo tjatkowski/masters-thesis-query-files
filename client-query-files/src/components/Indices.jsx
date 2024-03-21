@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import Url from '../utility/Url';
-import {Divider, List, ListItem, ListItemText, Paper, Theme, Typography} from "@mui/material";
-import {Link} from "react-router-dom";
+import {Divider, List, ListItem, ListItemText, Typography, ButtonBase} from "@mui/material";
 
-const Indices = () => {
+const Indices = ({setIndex}) => {
   const [indices, setIndices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -34,20 +33,17 @@ const Indices = () => {
   return (
     <>
       <List sx={{ width: '100%' }}>
-        {indices.map((index, i) => (
+        {indices.map((index) => (
           <>
-            <Link style={{ textDecoration: 'none' }} to={`/index/${index}`}>
+            <ButtonBase onClick={() => setIndex(index)} sx={{
+              width: '100%',
+            }}>
               <ListItem alignItems="flex-start" sx={{
                 "&:hover": {
                   boxShadow: 1,
                 },
                 transition: "box-shadow 0.3s ease-in-out",
                 color: 'common.black'
-
-                // bgcolor: 'grey.400',
-                // borderRadius: 2,
-                // border: 1,
-                // borderColor: 'primary.main'
               }}>
                 <ListItemText>
                   <Typography variant="h6">
@@ -55,7 +51,7 @@ const Indices = () => {
                   </Typography>
                 </ListItemText>
               </ListItem>
-            </Link>
+            </ButtonBase>
             <Divider variant="middle" component="li" />
           </>
         ))}
