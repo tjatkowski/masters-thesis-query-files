@@ -89,9 +89,8 @@ const Indices = ({index, setIndex}) => {
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  borderLeft: 1,
-                  borderColor: 'divider',
-                  paddingLeft: 2
+                  paddingLeft: 1,
+                  paddingRight: 1
                 }}>
                   <DeleteIcon fontSize="small" />
                 </ButtonBase>
