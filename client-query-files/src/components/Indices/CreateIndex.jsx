@@ -1,5 +1,4 @@
 import { Button, Stack, TextField } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import React from "react";
 import Url from "../../utility/Url";
 
@@ -22,7 +21,7 @@ const CreateIndex = ({refetchIndices}) => {
       marginBottom: 1
     }}>
       <TextField value={indexId} onChange={setIndexId} label="Index ID" variant="standard" size="small" />
-      <Button onClick={submit} variant="outlined" size="small" startIcon={<AddIcon />}>Create</Button>
+      <Button onClick={submit} variant="outlined" size="small">Create</Button>
     </Stack>
   )
 }
