@@ -43,7 +43,7 @@ const Indices = ({setIndex}) => {
                   boxShadow: 1,
                 },
                 transition: "box-shadow 0.3s ease-in-out",
-                color: 'common.black'
+                color: 'common'
               }}>
                 <ListItemText>
                   <Typography variant="h6">
