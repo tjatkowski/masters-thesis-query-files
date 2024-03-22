@@ -13,7 +13,8 @@ import {
   ToggleButton
 } from "@mui/material";
 import DescriptionIcon from '@mui/icons-material/Description';
-import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -54,7 +55,7 @@ const App = () => {
               onChange={() => setDarkMode(!darkMode)}
               sx={{marginLeft: 'auto', borderRadius: '100%'}}
             >
-              <LightbulbIcon />
+              {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
             </ToggleButton>
           </Toolbar>
         </AppBar>

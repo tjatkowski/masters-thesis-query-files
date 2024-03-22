@@ -1,11 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import Url from '../utility/Url';
-import {Divider, List, ListItem, ListItemText, Typography, ButtonBase} from "@mui/material";
+import {Divider, List, ListItem, Typography, ButtonBase, TextField, Box, Button} from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-const Indices = ({setIndex}) => {
+const Indices = ({index, setIndex}) => {
   const [indices, setIndices] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const currentIndex = compared_index => compared_index === index;
 
 
   useEffect(() => {
@@ -32,27 +35,68 @@ const Indices = ({setIndex}) => {
 
   return (
     <>
+      <Box sx={{
+        display: 'grid',
+        gap: 2,
+        gridTemplateColumns: '1fr',
+        gridTemplateRows: 'auto 1fr',
+        marginBottom: 1
+      }}>
+        <TextField id="outlined-basic" label="Index ID" variant="standard" size="small" />
+        <Button variant="outlined" size="small" startIcon={<AddIcon />}>Create</Button>
+      </Box>
+
       <List sx={{ width: '100%' }}>
         {indices.map((index) => (
           <>
-            <ButtonBase onClick={() => setIndex(index)} sx={{
-              width: '100%',
+            <Divider variant="fullWidth" component="li" />
+            <ListItem alignItems="flex-start" sx={{
+              "&:hover": {
+                borderColor: 'primary.main',
+              },
+              border: 1,
+              borderColor: currentIndex(index) ? 'primary.main' : 'transparent',
+              borderRadius: 2,
+              transition: theme => theme.transitions.create(['border']),
             }}>
-              <ListItem alignItems="flex-start" sx={{
-                "&:hover": {
-                  boxShadow: 1,
-                },
-                transition: "box-shadow 0.3s ease-in-out",
-                color: 'common'
+              <Box sx={{
+                display: 'grid',
+                gridTemplateColumns: '1fr auto',
+                width: '100%'
               }}>
-                <ListItemText>
-                  <Typography variant="h6">
+                <ButtonBase onClick={() => setIndex(currentIndex(index) ? null : index)} sx={{
+                  width: '100%',
+                  display: 'block',
+                  textAlign: 'left',
+                  "&:hover": {
+                    color: 'primary.main',
+                  },
+                  color: currentIndex(index) ? 'primary.main' : 'common',
+                  transition: theme => theme.transitions.create(['color']),
+                }}>
+                  <Typography variant="body1" component="div">
                     {index}
                   </Typography>
-                </ListItemText>
-              </ListItem>
-            </ButtonBase>
-            <Divider variant="middle" component="li" />
+                  <Typography variant="caption" component="div">
+                    Vector
+                  </Typography>
+                </ButtonBase>
+                <ButtonBase sx={{
+                  '&:hover': {
+                    color: 'error.main'
+                  },
+                  transition: theme => theme.transitions.create('color'),
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderLeft: 1,
+                  borderColor: 'divider',
+                  paddingLeft: 2
+                }}>
+                  <DeleteIcon fontSize="small" />
+                </ButtonBase>
+              </Box>
+            </ListItem>
           </>
         ))}
       </List>

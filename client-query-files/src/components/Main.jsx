@@ -17,7 +17,7 @@ const Main = () => {
         <Paper elevation={2} sx={{
           padding: 2,
         }}>
-          <Indices setIndex={setIndex}/>
+          <Indices index={index} setIndex={setIndex}/>
         </Paper>
 
         <Paper elevation={2} sx={{
