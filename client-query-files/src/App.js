@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
-import Indices from './components/Indices';
-import Index from './components/Index';
+import React, {useEffect, useState} from 'react';
+import Main from './components/Main';
+import Cookies from 'js-cookie';
+
 import {
   Container,
   CssBaseline,
-  Paper,
   AppBar,
   Toolbar,
   Typography,
@@ -21,8 +21,14 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 const App = () => {
-  const [index, setIndex] = useState(null)
-  const [darkMode, setDarkMode] = useState(true)
+  const [darkMode, setDarkMode] = useState(() => {
+    const darkModeFromCookie = Cookies.get('darkMode');
+    return darkModeFromCookie === 'true';
+  });
+
+  useEffect(() => {
+    Cookies.set('darkMode', darkMode, { expires: 31 });
+  }, [darkMode]);
 
   const darkTheme = createTheme({
     palette: {
@@ -53,15 +59,8 @@ const App = () => {
           </Toolbar>
         </AppBar>
 
-
-
-        <Container maxWidth="md">
-          <Paper elevation={2} sx={{
-            padding: '1em',
-            margin: '1em 0'
-          }}>
-            {index ? <Index index={index}/> : <Indices setIndex={setIndex}/>}
-          </Paper>
+        <Container maxWidth="xl">
+          <Main />
         </Container>
       </ThemeProvider>
     </React.Fragment>
