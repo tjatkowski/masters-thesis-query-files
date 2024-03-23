@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Box, createTheme, Paper} from "@mui/material";
+import {Box, Paper} from "@mui/material";
 import Index from "./Index";
 import Indices from "./Indices";
 

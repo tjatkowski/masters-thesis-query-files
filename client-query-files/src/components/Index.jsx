@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Box, Tab, Tabs, Typography} from "@mui/material";
+import React, {useState} from 'react';
+import {Box, Tab, Tabs} from "@mui/material";
 import Documents from "./Index/Documents"
 
 const TabPanel = ({ children, value, index, ...other }) => (

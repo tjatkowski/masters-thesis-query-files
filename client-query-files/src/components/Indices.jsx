@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import Url from '../utility/Url';
-import { Divider, List, ListItem } from "@mui/material";
+import { List, ListItem } from "@mui/material";
 import CreateIndex from "./Indices/CreateIndex";
 import IndicesListItem from "./Indices/IndicesListItem";
 
