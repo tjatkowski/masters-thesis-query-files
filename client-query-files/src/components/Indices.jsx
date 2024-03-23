@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Url from '../utility/Url';
 import { Divider, List, ListItem } from "@mui/material";
 import CreateIndex from "./Indices/CreateIndex";
-import IndexListItem from "./Indices/IndexListItem";
+import IndicesListItem from "./Indices/IndicesListItem";
 
 const Indices = ({index, setIndex}) => {
   const [indices, setIndices] = useState([]);
@@ -52,7 +52,7 @@ const Indices = ({index, setIndex}) => {
               transition: theme => theme.transitions.create(['border']),
               width: '100%'
             }}>
-              <IndexListItem
+              <IndicesListItem
                 currentIndex={currentIndex(index)}
                 index={index}
                 setIndex={setIndex}

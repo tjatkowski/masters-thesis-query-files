@@ -3,7 +3,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import React from "react";
 import Url from "../../utility/Url";
 
-const IndexListItem = ({currentIndex, index, setIndex, refetchIndices}) => {
+const IndicesListItem = ({currentIndex, index, setIndex, refetchIndices}) => {
   const deleteIndex = async () => {
     const response = await fetch(Url.deleteIndex(index), { method: 'DELETE' })
 
@@ -47,4 +47,4 @@ const IndexListItem = ({currentIndex, index, setIndex, refetchIndices}) => {
   )
 }
 
-export default IndexListItem;
+export default IndicesListItem;
