@@ -9,6 +9,7 @@ const IndicesListItem = ({currentIndex, index, setIndex, refetchIndices}) => {
 
     if (response.ok)
       refetchIndices()
+      currentIndex && setIndex(null)
   }
 
   return (

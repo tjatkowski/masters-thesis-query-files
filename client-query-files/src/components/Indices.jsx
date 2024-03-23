@@ -39,26 +39,23 @@ const Indices = ({index, setIndex}) => {
     <>
       <CreateIndex refetchIndices={refetchIndices}/>
       <List>
-        {indices.map((index) => (
-          <>
-            <Divider variant="fullWidth" component="li" />
-            <ListItem sx={{
-              "&:hover": {
-                borderColor: 'primary.main',
-              },
-              border: 1,
-              borderColor: currentIndex(index) ? 'primary.main' : 'transparent',
-              borderRadius: 2,
-              transition: theme => theme.transitions.create(['border']),
-              width: '100%'
-            }}>
-              <IndicesListItem
-                currentIndex={currentIndex(index)}
-                index={index}
-                setIndex={setIndex}
-                refetchIndices={refetchIndices}/>
-            </ListItem>
-          </>
+        {indices.map((index, i) => (
+          <ListItem key={i} sx={{
+            "&:hover": {
+              borderColor: 'primary.main',
+            },
+            border: 1,
+            borderColor: currentIndex(index) ? 'primary.main' : 'transparent',
+            borderRadius: 2,
+            transition: theme => theme.transitions.create(['border']),
+            width: '100%'
+          }}>
+            <IndicesListItem
+              currentIndex={currentIndex(index)}
+              index={index}
+              setIndex={setIndex}
+              refetchIndices={refetchIndices}/>
+          </ListItem>
         ))}
       </List>
     </>
