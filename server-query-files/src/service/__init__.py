@@ -92,7 +92,7 @@ def add_file_to_index(index_id: str, path: str) -> None:
     index.storage_context.persist(persist_dir=storage_dir)
 
 
-def _list_documents_in_index(index: BaseIndex) -> dict[str, str]:
+def _list_documents_in_index(index: BaseIndex) -> dict[str, dict]:
     """
     Lists all documents in a given index.
 
@@ -103,12 +103,25 @@ def _list_documents_in_index(index: BaseIndex) -> dict[str, str]:
         dict: A dictionary mapping file names to document references.
     """
     index_info = index.ref_doc_info
-    return {value.metadata.get('file_name'): key
-            for key, value in index_info.items()
-            if 'file_name' in value.metadata}
+    result = {}
+    for key, value in index_info.items():
+        if 'file_name' in value.metadata:
+            file_name = value.metadata.get('file_name')
+            if file_name in result:
+                result[file_name]['file_size'] += value.metadata.get('file_size', 0)
+                result[file_name]['ref_doc_ids'].append(key)
+            else:
+                result[file_name] = {
+                    'file_path': value.metadata.get('file_path'),
+                    'file_type': value.metadata.get('file_type'),
+                    'file_size': value.metadata.get('file_size', 0),
+                    'creation_date': value.metadata.get('creation_date'),
+                    'ref_doc_ids': [key]
+                }
+    return result
 
 
-def list_documents_in_index(index_id: str) -> dict[str, str]:
+def list_documents_in_index(index_id: str) -> dict[str, dict]:
     """
     Lists all documents in an index with the given index_id.
 
@@ -171,9 +184,9 @@ def remove_doc_file_from_index(index_id: str, doc_file: str) -> None:
         doc_file (str): The file name of the document to be removed.
     """
     index = get_index(index_id)
-    doc_ref = _list_documents_in_index(index).get(doc_file)
-    if doc_ref:
-        _remove_doc_ref_from_index(index, doc_ref)
+    doc = _list_documents_in_index(index).get(doc_file)
+    if doc:
+        _remove_doc_refs_from_index(index, doc.get('ref_doc_ids', []))
     else:
         print(f"Document {doc_file} not found in index {index_id}")
 
@@ -189,8 +202,9 @@ def delete_all_documents_from_index(index_id: str) -> None:
     if index is None:
         return
 
-    documents = _list_documents_in_index(index)
-    _remove_doc_refs_from_index(index, list(documents.values()))
+    documents = list(map(lambda doc: doc.get('ref_doc_ids', []), _list_documents_in_index(index).values()))
+    flattened = [doc_ref_id for document in documents for doc_ref_id in document]
+    _remove_doc_refs_from_index(index, flattened)
 
 
 def query_index(index_id: str, question: str) -> Response | None:

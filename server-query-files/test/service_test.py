@@ -55,7 +55,7 @@ def test_remove_doc_ref_from_index():
     create_index('index1')
     add_file_to_index('index1', 'test/test_data/test_document.txt')
     add_file_to_index('index1', 'test/test_data/test_document2.txt')
-    doc_ref = list_documents_in_index('index1')['test_document.txt']
+    doc_ref = list_documents_in_index('index1')['test_document.txt']['ref_doc_ids'][0]
     remove_doc_ref_from_index('index1', doc_ref)
     assert list(list_documents_in_index('index1').keys()) == ['test_document2.txt']
     # TODO: Test removing not existing doc_ref

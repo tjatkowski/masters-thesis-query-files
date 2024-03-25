@@ -1,5 +1,11 @@
 from werkzeug.utils import secure_filename
 
+'''
+from src.config import config
+from src.service import *
+config()
+'''
+
 from config import config
 from service import *
 from flask import Flask, request
@@ -43,6 +49,7 @@ def api_delete_index(index_id):
 
 @app.route('/index/<index_id>/documents/list', methods=['GET'])
 def api_list_documents(index_id):
+    # TODO: Make api return more metdata (filetype, size, etc.)
     if not index_id:
         return error_response('Invalid index_id')
     return success_response({'documents': list_documents_in_index(index_id)})
