@@ -10,7 +10,8 @@ import {
   Typography,
   createTheme,
   ThemeProvider,
-  ToggleButton
+  ToggleButton,
+  Box
 } from "@mui/material";
 import DescriptionIcon from '@mui/icons-material/Description';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -41,28 +42,30 @@ const App = () => {
     <React.Fragment>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline/>
-        <AppBar position="sticky">
-          <Toolbar>
-            <DescriptionIcon sx={{ mr: 2 }} />
-            <Typography variant="h5" fontWeight="bold">
-              Query Index
-            </Typography>
-            <ToggleButton
-              value="check"
-              color="standard"
-              size="small"
-              selected={darkMode}
-              onChange={() => setDarkMode(!darkMode)}
-              sx={{marginLeft: 'auto', borderRadius: '100%'}}
-            >
-              {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
-            </ToggleButton>
-          </Toolbar>
-        </AppBar>
+        <Box display="flex" height="100vh" flexDirection="column" overflow="hidden">
+          <AppBar position="sticky">
+            <Toolbar>
+              <DescriptionIcon sx={{ mr: 2 }} />
+              <Typography variant="h5" fontWeight="bold">
+                Query Index
+              </Typography>
+              <ToggleButton
+                value="check"
+                color="standard"
+                size="small"
+                selected={darkMode}
+                onChange={() => setDarkMode(!darkMode)}
+                sx={{marginLeft: 'auto', borderRadius: '100%'}}
+              >
+                {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+              </ToggleButton>
+            </Toolbar>
+          </AppBar>
 
-        <Container maxWidth="xl">
-          <Main />
-        </Container>
+          <Container sx={{flexGrow: 1, overflow: 'hidden'}} maxWidth="xl">
+            <Main />
+          </Container>
+        </Box>
       </ThemeProvider>
     </React.Fragment>
   );

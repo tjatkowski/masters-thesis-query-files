@@ -1,17 +1,19 @@
 import React, {useState} from 'react';
-import {Box, Tab, Tabs} from "@mui/material";
+import {Box, Stack, Tab, Tabs} from "@mui/material";
 import Documents from "./Index/Documents"
+import Query from "./Index/Query"
 
 const TabPanel = ({ children, value, index, ...other }) => (
   <div
     role="tabpanel"
+    style={{overflow: 'hidden'}}
     hidden={value !== index}
     id={`simple-tabpanel-${index}`}
     aria-labelledby={`simple-tab-${index}`}
     {...other}
   >
     {value === index && (
-      <Box sx={{ pt: 2 }}>
+      <Box sx={{ pt: 2, height: '100%' }}>
         {children}
       </Box>
     )}
@@ -38,7 +40,10 @@ const Index = ({index}) => {
 
   return (
     <>
-      <Box sx={{ width: '100%' }}>
+      <Stack direction="column" sx={{
+        width: '100%',
+        height: '100%',
+      }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={tab} onChange={(_, tab) => setTab(tab)} aria-label="basic tabs example">
             <Tab label="Query" {...a11yProps(0)} />
@@ -47,7 +52,7 @@ const Index = ({index}) => {
           </Tabs>
         </Box>
         <TabPanel value={tab} index={0}>
-          Query
+          <Query />
         </TabPanel>
         <TabPanel value={tab} index={1}>
           <Documents index={index} />
@@ -55,7 +60,7 @@ const Index = ({index}) => {
         <TabPanel value={tab} index={2}>
           Settings
         </TabPanel>
-      </Box>
+      </Stack>
     </>
   );
 };

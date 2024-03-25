@@ -12,7 +12,8 @@ const Main = () => {
         display: 'grid',
         gap: 2,
         gridTemplateColumns: '0.5fr 1fr',
-        marginTop: 2
+        py: 2,
+        height: '100%'
       }}>
         <Paper elevation={2} sx={{
           padding: 2,
@@ -22,6 +23,7 @@ const Main = () => {
 
         <Paper elevation={2} sx={{
           padding: 2,
+          overflow: 'hidden'
         }}>
           <Index index={index}/>
         </Paper>
