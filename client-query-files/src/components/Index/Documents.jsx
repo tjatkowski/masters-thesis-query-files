@@ -48,7 +48,7 @@ const Documents = ({index}) => {
       refetchDocuments()
   }
 
-  const deleteDocument = (doc_ref) => {
+  const deleteDocument = (file_name) => {
     refetchDocuments()
   }
 
