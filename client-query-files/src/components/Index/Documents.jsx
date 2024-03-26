@@ -48,8 +48,17 @@ const Documents = ({index}) => {
       refetchDocuments()
   }
 
-  const deleteDocument = (file_name) => {
-    refetchDocuments()
+  const deleteDocument = async (file_name) => {
+    const response = await fetch(Url.deleteDocument(index), {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({file_name})
+    });
+
+    if(response.ok)
+      refetchDocuments()
   }
 
   useEffect(() => {
