@@ -83,9 +83,20 @@ def api_delete_document(index_id):
 
     remove_doc_file_from_index(index_id, file_name)
     return success_response()
-# @app.route('/index/<index_id>/documents/delete_all', methods=['DELETE'])
-# @app.route('/index/<index_id>/query', methods=['POST'])
 
+
+@app.route('/index/<index_id>/query', methods=['POST'])
+def api_query_index(index_id):
+    if not index_id:
+        return error_response('Invalid index_id')
+    query = request.json.get('query')
+    if not query:
+        return error_response('Invalid query')
+    response = query_index(index_id, query)
+    return success_response({'response': response.response})
+
+
+# @app.route('/index/<index_id>/documents/delete_all', methods=['DELETE'])
 
 
 if __name__ == '__main__':

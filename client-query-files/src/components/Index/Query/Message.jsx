@@ -43,9 +43,8 @@ const Message = ({variant, value}) => {
         px: 2,
         py: 1,
         textAlign: settings.textAlign,
-        wordBreak: 'break-word',
+        wordBreak: 'auto-phrase',
         hyphens: 'auto',
-        overflowWrap: 'break-word',
       }}>
         {value ? value : (<LinearProgress color="primary" sx={{borderRadius: 2, m: 1.2, width: '75px', height: '5px'}}  />)}
       </Box>

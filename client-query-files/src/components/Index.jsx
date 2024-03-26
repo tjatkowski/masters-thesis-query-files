@@ -52,7 +52,7 @@ const Index = ({index}) => {
           </Tabs>
         </Box>
         <TabPanel value={tab} index={0}>
-          <Query />
+          <Query index={index} />
         </TabPanel>
         <TabPanel value={tab} index={1}>
           <Documents index={index} />

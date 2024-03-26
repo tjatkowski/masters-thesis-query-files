@@ -5,7 +5,7 @@ import Message from './Query/Message'
 import Url from "../../utility/Url";
 import * as R from 'ramda'
 
-const Query = () => {
+const Query = ({index}) => {
   const [query, setQuery] = useState("")
   const [messages, setMessages] = useState({uniqId: 0, messages: {}})
   const messagesRef = useRef(null);
@@ -50,30 +50,28 @@ const Query = () => {
     });
   }
 
-  const delay = ms => new Promise(res => setTimeout(res, ms));
-
-  const sendQuery = () => {
-    const [id1, id] = addMessages([
+  const sendQuery = async () => {
+    // eslint-disable-next-line no-unused-vars
+    const [_, id] = addMessages([
       [query, 'right'],
       [null, 'left']
     ])
-    const postQuery = async () => {
-      await delay(5000)
 
-      updateMessage(id, 'Reponse from')
+    const response = await fetch(Url.query(index), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({query})
+    })
 
+    if (!response.ok)
+      return
 
-      // const response = await fetch(Url.query(indexId), { method: 'POST' })
-      //
-      // if (!response.ok)
-      //   return
-      //
-      // const data = await response.json();
-      //
-      // addMessage('left')
-    }
+    const data = await response.json();
 
-    postQuery()
+    updateMessage(id, data?.response || 'No response received! Try again.')
+    setQuery("")
   }
 
   return (
