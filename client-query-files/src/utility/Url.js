@@ -8,6 +8,7 @@ const url = {
   addDocument: (indexId) => host('index', indexId, 'documents', 'add'),
   deleteDocument: (indexId) => host('index', indexId, 'document', 'delete'),
   query: (indexId) => host('index', indexId, 'query'),
+  settings: (indexId) => host('index', indexId, 'settings'),
 }
 
 export default url;

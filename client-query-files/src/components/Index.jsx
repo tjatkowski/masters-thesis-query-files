@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Box, Stack, Tab, Tabs} from "@mui/material";
 import Documents from "./Index/Documents"
 import Query from "./Index/Query"
+import Settings from "./Index/Settings";
 
 const TabPanel = ({ children, value, index, ...other }) => (
   <div
@@ -58,7 +59,7 @@ const Index = ({index}) => {
           <Documents index={index} />
         </TabPanel>
         <TabPanel value={tab} index={2}>
-          Settings
+          <Settings index={index} />
         </TabPanel>
       </Stack>
     </>

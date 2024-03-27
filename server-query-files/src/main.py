@@ -3,11 +3,13 @@ from werkzeug.utils import secure_filename
 '''
 from src.config import config
 from src.service import *
+from src.settings import *
 config()
 '''
 
-from config import config
+from config import *
 from service import *
+from settings import *
 from flask import Flask, request
 from flask_cors import CORS
 
@@ -31,6 +33,10 @@ def api_create_index(index_id):
     if not index_id:
         return error_response('Invalid index_id')
     index = create_index(index_id)
+    create_settings(index_id, {
+        'temperature': 0.7,
+        'topk': 3
+    })
     return success_response({'index_id': index.index_id})
 
 
@@ -44,6 +50,7 @@ def api_delete_index(index_id):
     if not index_id:
         return error_response('Invalid index_id')
     delete_index(index_id)
+    delete_settings(index_id)
     return success_response()
 
 
@@ -92,9 +99,30 @@ def api_query_index(index_id):
     query = request.json.get('query')
     if not query:
         return error_response('Invalid query')
+
+    update_temperature(read_settings(index_id).get('temperature', 0.7))
     response = query_index(index_id, query)
+    reset_temperature()
     return success_response({'response': response.response})
 
+
+@app.route('/index/<index_id>/settings', methods=['POST'])
+def api_update_settings(index_id):
+    if not index_id:
+        return error_response('Invalid index_id')
+    settings = request.json.get('settings')
+    if not settings:
+        return error_response('Invalid settings')
+
+    update_settings(index_id, settings)
+    return success_response()
+
+
+@app.route('/index/<index_id>/settings', methods=['GET'])
+def api_get_settings(index_id):
+    if not index_id:
+        return error_response('Invalid index_id')
+    return success_response({'settings': read_settings(index_id)})
 
 # @app.route('/index/<index_id>/documents/delete_all', methods=['DELETE'])
 
