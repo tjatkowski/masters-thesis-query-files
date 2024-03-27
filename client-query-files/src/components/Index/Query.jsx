@@ -5,12 +5,24 @@ import Message from './Query/Message'
 import Url from "../../utility/Url";
 import * as R from 'ramda'
 
+const localStorageKey = (index) => `index-${index}-messages`
+
+const getLocalStorage = (index) => {
+  const saved = localStorage.getItem(localStorageKey(index));
+  return saved !== null ? JSON.parse(saved) : {uniqId: 0, messages: {}};
+}
+
 const Query = ({index}) => {
   const [query, setQuery] = useState("")
-  const [messages, setMessages] = useState({uniqId: 0, messages: {}})
+  const [messages, setMessages] = useState(getLocalStorage(index))
   const messagesRef = useRef(null);
 
   useEffect(() => {
+    setMessages(getLocalStorage(index))
+  }, [index])
+
+  useEffect(() => {
+    localStorage.setItem(localStorageKey(index), JSON.stringify(messages));
     scrollToBottom()
   }, [messages])
 
