@@ -207,13 +207,14 @@ def delete_all_documents_from_index(index_id: str) -> None:
     _remove_doc_refs_from_index(index, flattened)
 
 
-def query_index(index_id: str, question: str) -> Response | None:
+def query_index(index_id: str, question: str, similarity_top_k: int) -> Response | None:
     """
     Queries an index with the given index_id.
 
     Args:
         index_id (str): The ID of the index to be queried.
         question (str): The question to be queried.
+        similarity_top_k (int): The number of top k results to return.
 
     Returns:
         Response: The response to the query.
@@ -222,7 +223,9 @@ def query_index(index_id: str, question: str) -> Response | None:
     if index is None:
         return
 
-    query_engine = index.as_query_engine()
+    if not similarity_top_k:
+        similarity_top_k = 2
+    query_engine = index.as_query_engine(similarity_top_k=similarity_top_k)
 
     return query_engine.query(question)
 

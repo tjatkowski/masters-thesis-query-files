@@ -35,7 +35,7 @@ def api_create_index(index_id):
     index = create_index(index_id)
     create_settings(index_id, {
         'temperature': 0.7,
-        'topk': 3
+        'topk': 2
     })
     return success_response({'index_id': index.index_id})
 
@@ -101,7 +101,9 @@ def api_query_index(index_id):
         return error_response('Invalid query')
 
     update_temperature(read_settings(index_id).get('temperature', 0.7))
-    response = query_index(index_id, query)
+    similarity_top_k = read_settings(index_id).get('topk', 2)
+    print(f"Querying index {index_id} with query: {query}, top_k: {similarity_top_k}, temperature: {Settings.llm.temperature}")
+    response = query_index(index_id, query, similarity_top_k)
     reset_temperature()
     return success_response({'response': response.response})
 
