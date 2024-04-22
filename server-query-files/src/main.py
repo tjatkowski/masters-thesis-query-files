@@ -14,8 +14,7 @@ from flask import Flask, request
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
-
+CORS(app, origins=['*'])
 
 def success_response(data=None):
     if data is None:

@@ -63,6 +63,7 @@ const Query = ({index}) => {
   }
 
   const sendQuery = async () => {
+    setQuery("")
     // eslint-disable-next-line no-unused-vars
     const [_, id] = addMessages([
       [query, 'right'],
@@ -83,7 +84,6 @@ const Query = ({index}) => {
     const data = await response.json();
 
     updateMessage(id, data?.response || 'No response received! Try again.')
-    setQuery("")
   }
 
   return (
